@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旅ママHitoko | AI開発ポートフォリオ</title>
+  <meta name="description" content="40代二児ママがClaude Codeで作ったAI開発実績集。ゲーム・LP・コンテンツ制作・SNS運用まで。">
+  <meta property="og:title" content="旅ママHitoko | AI開発ポートフォリオ">
+  <meta property="og:description" content="プログラミング未経験の40代ママがAIで作った実績を公開中。">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Variables ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:           #FAFAF7;
+      --surface:      #F5F5F0;
+      --white:        #FFFFFF;
+      --text:         #2D2D2D;
+      --muted:        #888888;
+      --accent:       #E8956D;
+      --accent-dark:  #CF7A54;
+      --accent-light: #FFF3EC;
+      --blue:         #5BB8D4;
+      --blue-bg:      rgba(91, 184, 212, 0.13);
+      --border:       #E8E8E2;
+      --shadow-sm:    0 2px 10px rgba(0, 0, 0, 0.07);
+      --shadow-md:    0 6px 24px rgba(0, 0, 0, 0.10);
+      --radius-card:  16px;
+      --radius-pill:  9999px;
+      --transition:   0.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.85;
+      letter-spacing: 0.02em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Fade-in animation ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .fade-up:nth-child(1) { animation-delay: 0.05s; }
+    .fade-up:nth-child(2) { animation-delay: 0.12s; }
+    .fade-up:nth-child(3) { animation-delay: 0.19s; }
+    .fade-up:nth-child(4) { animation-delay: 0.26s; }
+    .fade-up:nth-child(5) { animation-delay: 0.33s; }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 48px 20px 72px;
+    }
+
+    /* ════════════════════════════
+       Profile
+    ════════════════════════════ */
+    .profile {
+      text-align: center;
+      margin-bottom: 36px;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffddd0 0%, #ffbfa3 100%);
+      border: 4px solid var(--white);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.6rem;
+      margin: 0 auto 18px;
+    }
+
+    .profile-name {
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .profile-handle {
+      font-size: 13px;
+      color: var(--blue);
+      margin-bottom: 16px;
+      letter-spacing: 0.03em;
+    }
+
+    .profile-bio {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 2;
+      max-width: 360px;
+      margin: 0 auto 20px;
+    }
+    .profile-bio strong { color: var(--accent); font-weight: 700; }
+
+    /* SNS badges */
+    .sns-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .sns-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--blue-bg);
+      color: var(--blue);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .sns-badge:hover { opacity: 0.7; transform: translateY(-1px); }
+
+    /* ════════════════════════════
+       Utilities
+    ════════════════════════════ */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ════════════════════════════
+       About box
+    ════════════════════════════ */
+    .about-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 4px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .about-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 0;
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+    .about-row:last-child { border-bottom: none; }
+    .about-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+    /* ════════════════════════════
+       Cards
+    ════════════════════════════ */
+    .cards { display: flex; flex-direction: column; gap: 14px; }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .card:hover {
+      background: var(--accent-light);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .card:active { transform: scale(0.98); opacity: 0.9; }
+
+    /* Featured: full-width image on top */
+    .card-featured .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Compact: thumbnail on left */
+    .card-compact {
+      display: flex;
+      align-items: stretch;
+    }
+    .card-compact .card-img {
+      width: 112px;
+      flex-shrink: 0;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 14px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-badge {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 3px 11px;
+      border-radius: var(--radius-pill);
+      background: var(--blue-bg);
+      color: var(--blue);
+    }
+
+    .card-arrow {
+      color: var(--accent);
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 300;
+    }
+
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.8;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════
+       CTA Button
+    ════════════════════════════ */
+    .cta-wrap { text-align: center; margin-top: 36px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--white);
+      font-weight: 700;
+      font-family: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 15px 42px;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232, 149, 109, 0.35);
+    }
+    .btn:active { transform: scale(0.97); }
+
+    /* ════════════════════════════
+       Footer
+    ════════════════════════════ */
+    footer {
+      text-align: center;
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 2.2;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity var(--transition);
+    }
+    footer a:hover { opacity: 0.7; }
+
+    /* ════════════════════════════
+       Responsive
+    ════════════════════════════ */
+    @media (max-width: 480px) {
+      .page { padding: 36px 16px 60px; }
+      .card-compact .card-img { width: 96px; }
+      .card-featured .card-img { height: 170px; }
+      .btn { padding: 14px 32px; font-size: 13.5px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Profile ── -->
+  <section class="profile" aria-label="プロフィール">
+    <div class="avatar" role="img" aria-label="旅ママHitokoのアバター">✈️</div>
+    <h1 class="profile-name">旅ママ Hitoko</h1>
+    <p class="profile-handle">@tabimama.hitoko</p>
+    <p class="profile-bio">
+      円安・物価高に負けず世界を広げる<strong>40代二児ママ</strong>。<br>
+      AI に魂を宿す発信術を研究中 🧠<br>
+      Threads 2日で <strong>4.9万再生</strong> 以上達成 ✨
+    </p>
+    <nav class="sns-row" aria-label="SNSリンク">
+      <a href="https://www.threads.net/@tabimama.hitoko" class="sns-badge" target="_blank" rel="noopener">📱 Threads</a>
+      <a href="https://note.com/tabimama_hitoko" class="sns-badge" target="_blank" rel="noopener">📝 note</a>
+      <a href="https://lit.link/mamahitoko" class="sns-badge" target="_blank" rel="noopener">🔗 lit.link</a>
+    </nav>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── About ── -->
+  <section aria-labelledby="about-heading">
+    <h2 class="section-label" id="about-heading">About</h2>
+    <div class="about-box">
+      <div class="about-row"><span class="about-icon">✈️</span><span>マイルで叶える「旅費 0 円」家族旅行を実践中</span></div>
+      <div class="about-row"><span class="about-icon">🧠</span><span>Claude Code で AI 開発に挑戦するプログラミング未経験ママ</span></div>
+      <div class="about-row"><span class="about-icon">💰</span><span>月 50 万を目指す SNS マネタイズ戦略を実践・発信中</span></div>
+      <div class="about-row"><span class="about-icon">👶</span><span>5歳・2歳 女の子のワンオペ育児とビジネスを両立中</span></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Works ── -->
+  <section aria-labelledby="works-heading">
+    <h2 class="section-label" id="works-heading">Works — AI 開発の実績</h2>
+    <div class="cards">
+
+      <article class="card card-featured fade-up">
+        <img class="card-img" src="images/tetris_game.png" alt="ブラウザで動くテトリスゲームのスクリーンショット" loading="lazy">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-badge">Web ゲーム開発</span>
+            <span class="card-arrow" aria-hidden="true">›</span>
+          </div>
+          <h3 class="card-title">🎮 TETRIS Arcade Edition</h3>
+          <p class="card-desc">Claude Code で実装したブラウザ動作のテトリス。スコア・レベル・ライン管理まで完全実装。ダークネオンのアーケードデザイン。</p>
+        </div>
+      </article>
+
+      <article class="card card-featured fade-up">
+        <img class="card-img" src="images/website_travel_free.png" alt="無料旅行LPのスクリーンショット" loading="lazy">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-badge">LP 制作</span>
+            <span class="card-arrow" aria-hidden="true">›</span>
+          </div>
+          <h3 class="card-title">🌴 無料旅行 LP</h3>
+          <p class="card-desc">「無料で旅行に行く人」の秘密を訴求するランディングページ。AI 生成画像とコピーライティングを組み合わせた。</p>
+        </div>
+      </article>
+
+      <article class="card card-compact fade-up">
+        <img class="card-img" src="images/note_sns_monetize.png" alt="SNSマネタイズ戦略noteサムネイル" loading="lazy">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-badge">コンテンツ制作</span>
+            <span class="card-arrow" aria-hidden="true">›</span>
+          </div>
+          <h3 class="card-title">💰 SNS マネタイズ戦略 note</h3>
+          <p class="card-desc">Threads × Instagram で月 50 万円を目指す完全ガイドのサムネイルを AI で制作。</p>
+        </div>
+      </article>
+
+      <article class="card card-compact fade-up">
+        <img class="card-img" src="images/note_hawaii_travel.png" alt="円安ハワイAI攻略noteサムネイル" loading="lazy">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-badge">コンテンツ制作</span>
+            <span class="card-arrow" aria-hidden="true">›</span>
+          </div>
+          <h3 class="card-title">✈️ 円安ハワイ AI 攻略 note</h3>
+          <p class="card-desc">AI で 20 万円節約するハワイ旅行プランを検証。実践記事のサムネイルを AI で制作。</p>
+        </div>
+      </article>
+
+      <article class="card card-compact fade-up">
+        <img class="card-img" src="images/threads.png" alt="Threadsプロフィール画面のスクリーンショット" loading="lazy">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-badge">SNS 運用</span>
+            <span class="card-arrow" aria-hidden="true">›</span>
+          </div>
+          <h3 class="card-title">📱 Threads アカウント構築</h3>
+          <p class="card-desc">「AI ユニコーンと旅の魔法」テーマで 2 日 4.9 万再生達成。フォロワー 202 人から着実に拡大中。</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <div class="cta-wrap">
+    <a href="https://www.threads.net/@tabimama.hitoko" class="btn" target="_blank" rel="noopener">
+      📱 Threads をフォローする
+    </a>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <a href="https://lit.link/mamahitoko" target="_blank" rel="noopener">lit.link/mamahitoko</a><br>
+    © 2025 旅ママ Hitoko — Built with Claude Code
+  </footer>
+
+</div>
+</body>
+</html>
