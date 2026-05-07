@@ -21,6 +21,8 @@ function openMenu() {
   document.body.style.overflow = 'hidden';
   hamburger.setAttribute('aria-expanded', 'true');
   hamburger.setAttribute('aria-label', 'メニューを閉じる');
+  const firstLink = mobileMenu.querySelector('.mobile-menu__link');
+  if (firstLink) firstLink.focus();
 }
 
 function closeMenu() {
@@ -28,6 +30,7 @@ function closeMenu() {
   document.body.style.overflow = '';
   hamburger.setAttribute('aria-expanded', 'false');
   hamburger.setAttribute('aria-label', 'メニューを開く');
+  hamburger.focus();
 }
 
 hamburger.addEventListener('click', () => {
